@@ -1,25 +1,40 @@
-// import { Outlet } from "react-router-dom"
-
-// const About=()=>{
-//     return(<>
-//     <div>
-//         about component
-//     </div>
-//     <Outlet/>
-//     </>)
-// }
-
-// export default About
-// About.tsx
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 const About = () => {
+    const [files, setFiles] = useState([]);
+
+    useEffect(() => {
+        const fetchFiles = async () => {
+            try {
+                const response = await fetch('https://localhost:7183/api/upload');
+                if (!response.ok) {
+                    console.error('HTTP error', response.status);
+                    return;
+                }
+                const data = await response.json();
+                setFiles(data);
+            } catch (error) {
+                console.error('Error fetching files:', error);
+            }
+        };
+
+        fetchFiles();
+    }, []);
+
+    // אם יש קבצים, נציג את הראשון
+    const firstFile = files.length > 0 ? files[0] : null;
+
     return (
-        <div style={{ textAlign: 'center', padding: '20px' }}>
-            <h1>About Component</h1>
-            <Outlet />
+        <div>
+            {firstFile && (
+                <img
+                    src={`https://adminpermission.s3.amazonaws.com/${firstFile}`}
+                    alt={firstFile}
+                    style={{ width: '50vw', height: 'auto' }} // גודל חצי מסך
+                />
+            )}
         </div>
     );
-}
+};
 
 export default About;

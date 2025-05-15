@@ -17,8 +17,11 @@ const NavBar = () => {
         <nav style={style}>
             <Link to='/'>Home</Link> | 
             <Link to='/about'> About</Link> | 
-            <Link to='/courses'> Courses</Link>
-            {user?.id && <Link to='/about'> | Add Course </Link>}
+            <Link to='/courses'> Courses | </Link>
+            <Link to='/fileuploader'> Upload  </Link>
+            {/* <Link to='/download'> Download</Link> */}
+            {user?.email && <Link to='/about'> | Add Course </Link>}
+
         </nav>
     </>)
 }

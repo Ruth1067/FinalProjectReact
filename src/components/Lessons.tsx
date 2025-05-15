@@ -73,10 +73,10 @@
 
 // Lessons.tsx
 import { useEffect, useState } from "react";
-import CourseStore, { courseType } from "../stores/CourseStore";
+import CourseStore from "../stores/CourseStore";
 import { observer } from "mobx-react-lite";
 import Lesson from "./Lesson";
-
+import { CourseType } from '../CourseTypes'
 const style: React.CSSProperties = {
     width: '25vw',
     margin: '20px auto',
@@ -87,14 +87,14 @@ const style: React.CSSProperties = {
     overflowY: 'auto'
 };
 
-const Lessons = observer(({ course }: { course: courseType }) => {
-    const [selectedLesson, setSelectedLesson] = useState<courseType | null>(null);
+const Lessons = observer(({ course }: { course: CourseType }) => {
+    const [selectedLesson, setSelectedLesson] = useState<CourseType | null>(null);
 
     useEffect(() => {
         CourseStore.fetchCourses().catch(error => console.error('Error fetching courses:', error.message));
     }, []);
 
-    function handleLessonClick(lesson: courseType) {
+    function handleLessonClick(lesson: CourseType) {
         setSelectedLesson(lesson);
     }
 
@@ -107,9 +107,9 @@ const Lessons = observer(({ course }: { course: courseType }) => {
                     .map((c, i) => (
                         <div key={i} onClick={() => handleLessonClick(c)} style={{ cursor: 'pointer', margin: '10px 0' }}>
                             <div>{c.title}</div>
-                            <div>Teacher: {c.teacherName}</div>
-                            <div>Description: {c.description}</div>
-                            <div>Number of Lessons: {c.numberOfLessons}</div>
+                            <div>Teacher: {c.teacher}</div>
+                            <div>Description: {c.teacherId}</div>
+                            <div>Number of Lessons: {c.number}</div>
                         </div>
                     ))}
             </div>

@@ -27,7 +27,7 @@ const Courses = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
             <h1>Courses</h1>
-            <Outlet />
+              <Outlet />
             <CoursesList />
         </div>
     );
